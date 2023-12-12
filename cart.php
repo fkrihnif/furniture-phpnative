@@ -139,9 +139,7 @@ if(isset($_POST['submit1'])){
             <?php
               $totalPurchase = array_sum($purchaseOrder);
             ?>
-          <b>Total : <?php
-                    echo rupiah($totalPurchase);
-                    ?></b>
+          <b>Total : <?php echo rupiah($totalPurchase);?></b>
         </div>
       </div>
       <div class="row justify-content-end pb-4">

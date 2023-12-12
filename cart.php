@@ -12,6 +12,7 @@ if(isset($_POST['submit1'])){
 		alert('Cart Updated Successfully!');
 		window.location = 'cart.php';
 		</script>
+    
 		";
 	}
 }else if(isset($_POST['delete-cart'])){

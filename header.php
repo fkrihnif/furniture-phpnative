@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include 'connection/connection.php';
+include 'controller/format-rupiah.php';
 if(isset($_SESSION['id_cs'])){
 
 	$id_cs = $_SESSION['id_cs'];

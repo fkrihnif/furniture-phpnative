@@ -28,7 +28,7 @@ if($hal == 1){
 		if($update){
 			echo "
 			<script>
-			alert('BERHASIL DITAMBAHKAN KE KERANJANG');
+			alert('Successfully Added to Cart!');
 			window.location = '../cart.php';
 			</script>
 			";
@@ -40,7 +40,7 @@ if($hal == 1){
 		if($insert){
 			echo "
 			<script>
-			alert('BERHASIL DITAMBAHKAN KE KERANJANG');
+			alert('Successfully Added to Cart!');
 			window.location = '../cart.php';
 			</script>
 			";
@@ -59,7 +59,7 @@ if($hal == 1){
 		if($update){
 			echo "
 			<script>
-			alert('BERHASIL DITAMBAHKAN KE KERANJANG');
+			alert('Successfully Added to Cart!');
 			window.location = '../detail-shop.php?id=".$id_product."';
 			</script>
 			";
@@ -71,7 +71,7 @@ if($hal == 1){
 		if($insert){
 			echo "
 			<script>
-			alert('BERHASIL DITAMBAHKAN KE KERANJANG');
+			alert('Successfully Added to Cart!');
 			window.location = '../detail-shop.php?id=".$id_product."';
 			</script>
 			";

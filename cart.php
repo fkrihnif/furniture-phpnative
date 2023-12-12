@@ -12,7 +12,6 @@ if(isset($_POST['submit1'])){
 		alert('Cart Updated Successfully!');
 		window.location = 'cart.php';
 		</script>
-    
 		";
 	}
 }else if(isset($_POST['delete-cart'])){
@@ -88,7 +87,9 @@ if(isset($_POST['submit1'])){
                   </div>
                   <div class="col-7" style="text-align: left">
                     <p><?= $row['name_product']; ?></p>
-                    <b>Rp <?= $row['hrg']; ?></b>
+                    <b><?php
+                    echo rupiah($row['hrg']);
+                    ?></b>
                   </div>
                 </div>
               </td>
@@ -124,7 +125,7 @@ if(isset($_POST['submit1'])){
               </td>
             </form>
 
-              <td>Rp <?= $total; ?></td>
+              <td><?php echo rupiah($total);?></td>
             </tr>
             <?php
             $purchaseOrder[] = $total;
@@ -138,7 +139,9 @@ if(isset($_POST['submit1'])){
             <?php
               $totalPurchase = array_sum($purchaseOrder);
             ?>
-          <b>Total : Rp <?= $totalPurchase; ?></b>
+          <b>Total : <?php
+                    echo rupiah($totalPurchase);
+                    ?></b>
         </div>
       </div>
       <div class="row justify-content-end pb-4">

@@ -1,0 +1,240 @@
+:root {
+  --green: #29795a;
+  --softgreen: #d2ffee;
+  --black: #010101;
+  --orange: #f6b50e;
+  --softorange: #ffe39b;
+  --grey: #dfe2e7;
+  --softgrey: #f9fbfc;
+  --darkgreen: #3c5e50;
+  --purple: #6261d8;
+  --white: #ffff;
+  --fwbold: 700;
+  --fwextrabold: 800;
+  --fwsemibold: 600;
+  --fwmedium: 500;
+  --fwregular: 400;
+  --fwlight: 300;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--softgreen);
+}
+
+.big-header {
+  font-weight: var(--fwextrabold);
+  color: var(--green);
+  font-size: 48px;
+  margin: 0;
+}
+
+.small-header {
+  font-size: 16px;
+  font-weight: var(--fwregular);
+  line-height: 28px;
+  color: var(--green);
+  margin: 0;
+}
+
+.primary-copy {
+  font-size: 16px;
+  font-weight: var(--fwregular);
+  line-height: 28px;
+  color: var(--darkgrey);
+}
+
+.features .features-wrapper .small-feature-card {
+  padding: 30px;
+  border-radius: 16px;
+  background: var(--white);
+  padding-bottom: 30px;
+  cursor: pointer;
+}
+.features .features-wrapper h3 {
+  padding-top: 16px;
+}
+.features-wrapper:hover .big-feature-card:not(:hover) {
+  filter: blur(4px);
+  transition: all 0.3s ease;
+}
+
+.features-wrapper:hover .small-feature-card:not(:hover) {
+  filter: blur(4px);
+  transition: all 0.3s ease;
+}
+
+.features .features-wrapper .small-feature-card .icon {
+  height: 100px;
+}
+
+.features .features-wrapper .big-feature-card {
+  padding: 30px;
+  border-radius: 16px;
+  background: var(--white);
+  padding-bottom: 60px;
+  cursor: pointer;
+}
+
+.features .features-wrapper .icon {
+  float: left;
+  width: 60px;
+  height: 200px;
+  margin-right: 18px;
+}
+
+.features .features-wrapper .icon img {
+  float: left;
+  width: 60px;
+  height: 60px;
+}
+
+.btn-primary {
+  padding: 12px 20px 12px 20px;
+  background: var(--orange);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: var(--fwsemibold);
+  border-radius: 50px;
+  border: 0;
+}
+.btn-primary:hover {
+  background: var(--green);
+  color: var(--white);
+}
+
+.btn-secondary {
+  padding: 12px 20px 12px 20px;
+  background: var(--grey);
+  color: var(--green);
+  font-size: 16px;
+  font-weight: var(--fwmedium);
+  border-radius: 50px;
+  border: 0;
+}
+
+.btn-secondary:hover {
+  background: var(--green);
+  color: var(--white) !important;
+}
+
+.navbar-nav .nav-item a:hover {
+  color: var(--orange);
+  transition: all 0.3s ease;
+  font-weight: var(--fwsemibold);
+}
+
+.navbar-nav .nav-item a {
+  color: var(--black);
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-item {
+  padding-right: 25px;
+  padding-left: 25px;
+  font-weight: var(--fwregular);
+  transition: all 0.3s ease;
+}
+
+.navbar-brand {
+  font-weight: var(--fwsemibold);
+  font-size: 28px;
+  color: var(--green);
+}
+
+.navbar {
+  --bs-navbar-padding-y: 0rem;
+}
+.minimal-navbar {
+  padding: 30px;
+  background: var(--white);
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
+}
+
+.big-header {
+  font-weight: var(--fwbold);
+  color: var(--green);
+  font-size: 48px;
+  line-height: 60px;
+  margin: 0;
+}
+
+.primary-copy {
+  font-size: 16px;
+  font-weight: var(--fwregular);
+  line-height: 28px;
+  color: var(--darkgreen);
+  margin: 0;
+}
+
+.mt-70 {
+  margin-top: 70px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mr-30 {
+  margin-right: 30px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+  font-weight: var(--fwbold);
+  color: #29795a;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+  font-weight: var(--fwregular);
+  color: var(--darkgreen);
+}
+
+.card-brand {
+  width: 227px;
+  height: 110px;
+  border-radius: 16px;
+  background-color: var(--grey);
+  text-align: center;
+}
+
+.card-brand .logo {
+  height: 50px;
+  margin-top: 30px;
+}
+
+.carousel-wrapper {
+  display: flex;
+  height: 110px;
+  animation: moveSlidesToLeft 20s linear infinite;
+}
+
+.carousel {
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  height: 110px;
+  overflow: hidden;
+}
+
+@keyframes moveSlidesToLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.section-footer {
+  background-color: var(--green);
+  a {
+    color: var(--grey);
+  }
+}

@@ -134,21 +134,45 @@ if(isset($_POST['submit1'])){
           </tbody>
         </table>
       </div>
-      <div class="row justify-content-end pb-4">
-        <div class="col-3" align="right" style="padding-right: 50px;">
-            <?php
-              $totalPurchase = array_sum($purchaseOrder);
+      
+      <?php
+        	$check_cart = mysqli_query($conn, "SELECT id from cart where customer_id = '$id_cs' and status = 0");
+          $value = mysqli_num_rows($check_cart);
+
+          if ($value > 0) {
             ?>
-          <b style="font-size: 130%;">Total : <?php echo rupiah($totalPurchase);?></b>
-        </div>
-      </div>
-      <div class="row justify-content-end pb-4">
-        <div class="col-4" align="right" style="padding-right: 50px;">
-          <a href="checkout.php">
-            <button class="btn btn-primary">Checkout</button></a
-          >
-        </div>
-      </div>
+            <div class="row justify-content-end pb-4">
+              <div class="col-3" align="right" style="padding-right: 50px;">
+                  <?php
+                    $totalPurchase = array_sum($purchaseOrder);
+                  ?>
+                <b style="font-size: 130%;">Total : <?php echo rupiah($totalPurchase);?></b>
+              </div>
+            </div>
+            <div class="row justify-content-end pb-4">
+              <div class="col-4" align="right" style="padding-right: 50px;">
+                <a href="checkout.php">
+                  <button class="btn btn-primary">Checkout</button></a
+                >
+              </div>
+            </div>
+            <?php
+          } else {
+            ?>
+               <div class="row justify-content-end pb-4">
+              <div class="col-12" style="text-align: center;">
+              <h5><b>Your Cart is Empty, Lets Go <a href="shop.php" style="text-decoration: none; color: black">Shopping</a> :)</b></h5>
+              </div>
+            </div>
+            <?php
+            
+          }
+          
+      ?>
+
+      
+
+
     </div>
 
     <?php

@@ -40,9 +40,21 @@ while($row = mysqli_fetch_assoc($keranjang)){
 	$qty = $row['qty'];
 	$price = $row['price'];
 	$id_cart = $row['id'];
+	$product_id = $row['product_id'];
 	$total_price = $qty*$price;
 
 	$edit = mysqli_query($conn, "UPDATE cart SET status = 1, transaction_id = '$lastInsertedId'  where id = '$id_cart'");
+
+	//kurangkan stok di table product
+	$product = mysqli_query($conn, "SELECT * FROM product WHERE id = '$product_id'");
+    $data_product = mysqli_fetch_assoc($product);
+	$stock = $data_product['stock']; 
+
+	//stok - qty pembelian
+	$stock_now = $stock - $qty;
+
+	//update stock to table product
+	$update_stock_product = mysqli_query($conn, "UPDATE product SET stock = '$stock_now'  where id = '$product_id'");
 
 	$purchaseOrder[] = $total_price;
 

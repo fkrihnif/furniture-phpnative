@@ -19,12 +19,7 @@ if(isset($_SESSION['user'])){
 <div class="container mt-4">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="index.php" style="color: #29795a; text-decoration: none"
-              >Home</a
-            >
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">My Transaction</li>
+        <button onclick="history.back()" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Back</button>
         </ol>
       </nav>
     </div>

@@ -17,7 +17,7 @@ if($jml ==1){
 	}else{
 		echo "
 		<script>
-		alert('EMAIL/PASSWORD SALAH');
+		alert('Email/Password Incorrect');
 		window.location = '../login.php';
 		</script>
 		";
@@ -26,7 +26,7 @@ if($jml ==1){
 }else{
 	echo "
 	<script>
-	alert('EMAIL/PASSWORD SALAH');
+	alert('Email/Password Incorrect');
 	window.location = '../login.php';
 	</script>
 	";

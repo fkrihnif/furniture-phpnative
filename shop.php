@@ -21,14 +21,18 @@ if(isset($_SESSION['id_cs'])){
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <button type="button" class="btn btn-primary btn-sm">All</button>
-            <button type="button" class="btn btn-secondary btn-sm">Sofa</button>
-            <button type="button" class="btn btn-secondary btn-sm">
-              Kabinet
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm">
-              Chair
-            </button>
+            <button type="button" class="btn btn-primary btn-sm">All</button>&nbsp; 
+
+            <?php
+              				$result_category = mysqli_query($conn, "SELECT * FROM category");
+                      while ($row_category = mysqli_fetch_assoc($result_category)) {
+
+            ?>
+                  <button type="button" class="btn btn-secondary btn-sm"><?= $row_category['category_name'];  ?></button>&nbsp; 
+
+                  <?php
+                    }
+                  ?>
           </div>
         </div>
       </div>

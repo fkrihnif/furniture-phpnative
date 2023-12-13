@@ -6,7 +6,7 @@ if(isset($_SESSION['user'])){
     $cek = mysqli_query($conn, "SELECT * FROM cart WHERE customer_id = '$id_cs'");
     $jml = mysqli_num_rows($cek);
 
-    $result = mysqli_query($conn, "SELECT * FROM transaction WHERE customer_id = '$id_cs'");
+    $result = mysqli_query($conn, "SELECT * FROM transaction WHERE customer_id = '$id_cs' order by id Desc");
 ?>
 
 

@@ -43,6 +43,7 @@ if(isset($_SESSION['admin'])) {
                   <input
                     type="text"
                     placeholder="enter your Username"
+                    autofocus
                     required
                     name="username" />
                 </div>

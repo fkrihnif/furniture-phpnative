@@ -17,7 +17,7 @@ if($password == $konfirmasi){
 	if($jml == 1){
 		echo "
 		<script>
-		alert('USERNAME SUDAH DIGUNAKAN');
+		alert('Username Has Been Used');
 		window.location = '../register.php';
 		</script>
 		";
@@ -28,7 +28,7 @@ if($password == $konfirmasi){
 	if($result){
 		echo "
 		<script>
-		alert('REGISTER BERHASIL');
+		alert('Register Success!');
 		window.location = '../login.php';
 		</script>
 		";
@@ -37,7 +37,7 @@ if($password == $konfirmasi){
 }else{
 	echo "
 	<script>
-	alert('KONFIRMASI PASSWORD TIDAK SAMA');
+	alert('Confirm Password Not Same');
 	window.location = '../register.php';
 	</script>
 	";

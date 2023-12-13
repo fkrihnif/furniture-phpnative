@@ -96,18 +96,18 @@ if(isset($_SESSION['user'])){
         <div class="row justify-content-evenly">
           <div class="col-4">
             <label for="">Name</label>
-            <input type="text" class="form-control" name="name" autofocus/>
+            <input type="text" class="form-control" name="name" autofocus required/>
           </div>
           <div class="col-4">
             <label for="">Address</label>
-            <input type="text" class="form-control" name="address" />
+            <input type="text" class="form-control" name="address" required/>
           </div>
         </div>
 
         <div class="row justify-content-evenly" style="padding-bottom: 60px;">
           <div class="col-4 mt-4">
             <label for="">No Hp</label>
-            <input type="number" class="form-control" name="no_hp" />
+            <input type="number" class="form-control" name="no_hp" required />
           </div>
 
           <div class="col-4 mt-5">

@@ -18,7 +18,7 @@ $data_category = mysqli_fetch_assoc($category);
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="shop.html" style="color: #29795a; text-decoration: none"
+            <a href="shop.php" style="color: #29795a; text-decoration: none"
               >Shop</a
             >
           </li>

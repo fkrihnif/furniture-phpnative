@@ -5,7 +5,6 @@ if(isset($_SESSION['id_cs'])){
 
 	$id_cs = $_SESSION['id_cs'];
 }
-$id = $_GET['id'];
 ?>
 
 <section class="header mt-70">
@@ -53,19 +52,25 @@ $id = $_GET['id'];
                   alt="..."
                   height="200px" />
                 <div class="card-body">
-                  <b><?= $row['name'];  ?></b>
+                  <b style="color: black;"><?= $row['name'];  ?></b>
 
                   <?php
                       $category_id = $row['category_id'];
                       $category = mysqli_query($conn, "SELECT * from category where id = '$category_id'");
                       $data = mysqli_fetch_assoc($category);
+
+                      if (strlen($row['description']) > 30) {
+                        $description = substr($row['description'], 0, 7) . '...';
+                      } else {
+                        $description = $row['description'];
+                      }
                   ?>
 
-                  <p>Category : <?= $data['category_name'];  ?></p>
-                  <p class="card-text" style="font-size: 60%">
-                    <?= $row['description'];  ?>
+                  <p style="color: black; font-size: 70%;">Category : <?= $data['category_name'];  ?></p>
+                  <p class="card-text" style="font-size: 60%; color: black">
+                    <?= $description;  ?>
                   </p>
-                  <p><?php
+                  <p style="color: black;"><?php
                     echo rupiah($row['price']);
                     ?></p>
 
@@ -79,14 +84,14 @@ $id = $_GET['id'];
                   <input type="hidden" name="qty" value="1">
 
                     <div class="col" style="text-align: right;">
-                      <button type="submit" class="btn btn-success mt-2"><i class="bi bi-cart"></i> Cart</button>
+                      <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-cart"></i> Cart</button>
                     </div>
                   </form>
                   <?php
                     }else{
                   ?>
                   <div class="col" style="text-align: right;">
-                    <a href="login.php"><button type="submit" class="btn btn-success mt-2"><i class="bi bi-cart"></i> Cart</button></a>
+                    <a href="login.php"><button type="submit" class="btn btn-success btn-sm"><i class="bi bi-cart"></i> Cart</button></a>
                   </div>
                   <?php
                     }

@@ -45,7 +45,8 @@
                     type="email"
                     placeholder="enter your email"
                     required
-                    name="email" />
+                    name="email"
+                    autofocus/>
                 </div>
                 <label for="password">Password</label>
                 <div class="input-box">

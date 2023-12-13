@@ -1,12 +1,21 @@
 <?php 
 include 'header.php';
+if(isset($_SESSION['user'])){
+    $id_cs = $_SESSION['id_cs'];
+    // CEK JUMLAH KERANJANG
+    $cek = mysqli_query($conn, "SELECT * FROM cart WHERE customer_id = '$id_cs'");
+    $jml = mysqli_num_rows($cek);
+
+    $result = mysqli_query($conn, "SELECT k.id as cart_id, k.product_id as product_id, k.qty as qty, p.image as gambar, p.price as hrg, p.name as name_product FROM cart k join product p on k.product_id=p.id WHERE customer_id = '$id_cs' and status = 0");
+    
 ?>
+
 
 <div class="container mt-4">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="shop.html" style="color: #29795a; text-decoration: none"
+            <a href="shop.php" style="color: #29795a; text-decoration: none"
               >Shop</a
             >
           </li>
@@ -14,6 +23,7 @@ include 'header.php';
         </ol>
       </nav>
     </div>
+
 
     <div class="container" style="background-color: white; border-radius: 30px; margin-bottom:60px">
       <div class="row pt-4">
@@ -26,104 +36,97 @@ include 'header.php';
             </tr>
           </thead>
           <tbody>
-            <tr style="text-align: center">
+          <?php
+          $no = 1;
+          $purchaseOrder = [];
+          foreach ($result as $row):
+          $total = $row['hrg']*$row['qty'];
+          ?>
+          <tr style="text-align: center">
               <td>
                 <div class="row">
                   <div class="col-1"></div>
                   <div class="col-4">
                     <img
-                      src="assets_home/images/image3.png"
+                      src="image/product/<?= $row['gambar']; ?>"
                       class="rounded float-left img-thumbnail"
                       alt="..."
                       width="150px"
                       style="border-color: #4ca763" />
                   </div>
                   <div class="col-7" style="text-align: left">
-                    <p>Lemari</p>
-                    <b>Rp 500.000</b>
+                    <p><?= $row['name_product']; ?></p>
+                    <b><?php
+                    echo rupiah($row['hrg']);
+                    ?></b>
                   </div>
                 </div>
               </td>
+
+              <input type="hidden" name="id" value="<?php echo $row['cart_id']; ?>">
               <td style="text-align: center">
-                <div class="row">
-                  <div class="col-12">
-                    <p>2</p>
-                  </div>
-                  <div class="col-6"></div>
-                </div>
+                <?= $row['qty']; ?>
               </td>
-              <td>Rp 1000.000</td>
+
+              <td align="right" style="padding-right: 50px;"><?php echo rupiah($total);?></td>
             </tr>
-            <tr style="text-align: center">
-              <td>
-                <div class="row">
-                  <div class="col-1"></div>
-                  <div class="col-4">
-                    <img
-                      src="assets_home/images/image3.png"
-                      class="rounded float-left img-thumbnail"
-                      alt="..."
-                      width="150px"
-                      style="border-color: #4ca763" />
-                  </div>
-                  <div class="col-7" style="text-align: left">
-                    <p>Lemari</p>
-                    <b>Rp 500.000</b>
-                  </div>
-                </div>
-              </td>
-              <td style="text-align: center">
-                <div class="row">
-                  <div class="col-12">
-                    <p>2</p>
-                  </div>
-                  <div class="col-6"></div>
-                </div>
-              </td>
-              <td>Rp 1000.000</td>
-            </tr>
+            <?php
+            $purchaseOrder[] = $total;
+            ?>
+            <?php endforeach; ?>
           </tbody>
         </table>
       </div>
       <div class="row justify-content-end pb-4">
-        <div class="col-4" style="text-align: right; margin-right:70px">
-          <h4>Total : Rp 2.000.000</h4>
+        <div class="col-3" align="right" style="padding-right: 50px;">
+            <?php
+              $totalPurchase = array_sum($purchaseOrder);
+            ?>
+          <b style="font-size: 130%;">Total : <?php echo rupiah($totalPurchase);?></b>
         </div>
       </div>
-
-      <div class="row justify-content-evenly">
-        <div class="col-4">
-          <h3><u>Formulir</u></h3>
+      <form action="controller/checkout.php" method="post">
+        <input type="hidden" name="id_cs" value="<?php echo $id_cs ?>">
+        <div class="row justify-content-evenly">
+          <div class="col-4">
+            <h4><u>Please Fill this Form</u></h4>
+          </div>
+          <div class="col-4"></div>
         </div>
-        <div class="col-4"></div>
-      </div>
-      <div class="row justify-content-evenly">
-        <div class="col-4">
-          <label for="">Nama</label>
-          <input type="text" class="form-control" name="" />
-        </div>
-        <div class="col-4">
-          <label for="">Alamat Lengkap</label>
-          <input type="text" class="form-control" name="" />
-        </div>
-      </div>
-
-      <div class="row justify-content-evenly pb-4">
-        <div class="col-4 mt-4">
-          <label for="">No Hp</label>
-          <input type="text" class="form-control" name="" />
+        <div class="row justify-content-evenly">
+          <div class="col-4">
+            <label for="">Name</label>
+            <input type="text" class="form-control" name="name" />
+          </div>
+          <div class="col-4">
+            <label for="">Address</label>
+            <input type="text" class="form-control" name="address" />
+          </div>
         </div>
 
-        <div class="col-4 mt-5">
-          <a href="">
-            <button class="btn btn-primary btn-lg" onclick="myFunction()">
-              Pesan Sekarang
-            </button></a
-          >
+        <div class="row justify-content-evenly" style="padding-bottom: 60px;">
+          <div class="col-4 mt-4">
+            <label for="">No Hp</label>
+            <input type="text" class="form-control" name="no_hp" />
+          </div>
+
+          <div class="col-4 mt-5">
+              <div class="d-grid gap-2 col-12 mx-auto">
+                <button class="btn btn-primary btn-lg" type="submit">Order Now</button>
+              </div>
+          </div>
         </div>
-      </div>
+      </form>
+
+
     </div>
- 
+
     <?php
     include 'footer.php';
     ?>
+
+    <?php
+        } else {
+            header('location:/');
+        }
+        ?>

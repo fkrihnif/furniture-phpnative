@@ -35,7 +35,7 @@ if(isset($_POST['submit1'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="shop.html" style="color: #29795a; text-decoration: none"
+            <a href="shop.php" style="color: #29795a; text-decoration: none"
               >Shop</a
             >
           </li>
@@ -119,13 +119,13 @@ if(isset($_POST['submit1'])){
               <td>
                 <a href="#" onclick="return confirm('Are You Sure to Delete This Product ?')">
                   <button class="btn btn-danger btn-sm" type="submit" name="delete-cart">
-                    <i class="bi bi-x-lg"></i>
+                    <i class="bi bi-trash"></i>
                   </button>
                 </a>
               </td>
             </form>
 
-              <td><?php echo rupiah($total);?></td>
+              <td align="right" style="padding-right: 50px;"><?php echo rupiah($total);?></td>
             </tr>
             <?php
             $purchaseOrder[] = $total;
@@ -135,15 +135,15 @@ if(isset($_POST['submit1'])){
         </table>
       </div>
       <div class="row justify-content-end pb-4">
-        <div class="col-2">
+        <div class="col-3" align="right" style="padding-right: 50px;">
             <?php
               $totalPurchase = array_sum($purchaseOrder);
             ?>
-          <b>Total : <?php echo rupiah($totalPurchase);?></b>
+          <b style="font-size: 130%;">Total : <?php echo rupiah($totalPurchase);?></b>
         </div>
       </div>
       <div class="row justify-content-end pb-4">
-        <div class="col-2">
+        <div class="col-4" align="right" style="padding-right: 50px;">
           <a href="checkout.php">
             <button class="btn btn-primary">Checkout</button></a
           >
@@ -168,7 +168,7 @@ if(isset($_POST['submit1'])){
               </thead>
               <tbody>
               <tr>
-              <td colspan='7' class='text-center bg-warning'><h5><b>Please Login First ...</b></h5></td>
+              <td colspan='7' class='text-center bg-warning'><h5><b>Please <a href="login.php" style="text-decoration: none; color: black">Login</a> First ...</b></h5></td>
               </tr>
     
           </tbody>

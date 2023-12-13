@@ -1,17 +1,16 @@
 <?php 
 include '../connection/connection.php';
-$kd_cs = $_POST['kode_cs'];
-$nama = $_POST['nama'];
-$prov = $_POST['prov'];
-$kota = $_POST['kota'];
-$alamat = $_POST['almt'];
-$kopos = $_POST['kopos'];
-$tanggal = date('yy-m-d');
+$id_cs = $_POST['id_cs'];
+$name = $_POST['name'];
+$address = $_POST['address'];
+$no_hp = $_POST['no_hp'];
+$now = date("Y-m-d");
 
 
-$kode = mysqli_query($conn, "SELECT invoice from produksi order by invoice desc");
+
+$kode = mysqli_query($conn, "SELECT transaction_code from transaction order by id desc");
 $data = mysqli_fetch_assoc($kode);
-$num = substr($data['invoice'], 3, 4);
+$num = substr($data['transaction_code'], 3, 4);
 $add = (int) $num + 1;
 if(strlen($add) == 1){
 	$format = "INV000".$add;
@@ -24,23 +23,38 @@ else if(strlen($add) == 3){
 	$format = "INV".$add;
 }
 
-$keranjang = mysqli_query($conn, "SELECT * FROM keranjang WHERE kode_customer = '$kd_cs'");
+
+$query_transaction = "INSERT INTO transaction VALUES(null, '$id_cs', '$format','$name','$no_hp','$address',null,0,'$now')";
+
+// Execute the query
+if (mysqli_query($conn, $query_transaction)) {
+    // Get the ID of the last inserted row
+    $lastInsertedId = mysqli_insert_id($conn);
+}
+
+$keranjang = mysqli_query($conn, "SELECT * FROM cart WHERE customer_id = '$id_cs' AND status = 0");
+
+$purchaseOrder = [];
 
 while($row = mysqli_fetch_assoc($keranjang)){
-	$kd_produk = $row['kode_produk'];
-	$nama_produk = $row['nama_produk'];
 	$qty = $row['qty'];
-	$harga = $row['harga'];
-	$status = "Pesanan Baru";
+	$price = $row['price'];
+	$id_cart = $row['id'];
+	$total_price = $qty*$price;
 
-	$order = mysqli_query($conn, "INSERT INTO produksi VALUES(null,'$format','$kd_cs','$kd_produk','$nama_produk','$qty','$harga','$status','$tanggal','$prov','$kota','$alamat','$kopos','0','0','0')");
+	$edit = mysqli_query($conn, "UPDATE cart SET status = 1, transaction_id = '$lastInsertedId'  where id = '$id_cart'");
 
+	$purchaseOrder[] = $total_price;
 
 }
-	$del_keranjang = mysqli_query($conn,"DELETE FROM keranjang WHERE kode_customer = '$kd_cs'");
 
-	if($del_keranjang){
-		header("location:../selesai.php");
+	$totalPurchase = array_sum($purchaseOrder);
+
+	$insert_total_transaction = mysqli_query($conn, "UPDATE transaction SET total_price = '$totalPurchase' where id = '$lastInsertedId'");
+
+
+	if($insert_total_transaction){
+		header("location:../checkout-done.php");
 	}
 
 

@@ -51,6 +51,21 @@ if(isset($_SESSION['id_cs'])){
             <li class="nav-item">
               <a class="nav-link" href="shop.php">Shop</a>
             </li>
+
+            <?php
+              if (isset($_SESSION['id_cs'])) {
+                ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="my-transaction.php">My-Transaction</a>
+                </li>
+                <?php
+              } else { 
+              }
+            ?>
+            
+
+
+   
           </ul>
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">

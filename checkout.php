@@ -85,6 +85,7 @@ if(isset($_SESSION['user'])){
           <b style="font-size: 130%;">Total : <?php echo rupiah($totalPurchase);?></b>
         </div>
       </div>
+      <hr style="margin-top: 40px;margin-bottom: 40px">
       <form action="controller/checkout.php" method="post">
         <input type="hidden" name="id_cs" value="<?php echo $id_cs ?>">
         <div class="row justify-content-evenly">

@@ -64,13 +64,14 @@ if(isset($_SESSION['id_cs'])){
                       $data = mysqli_fetch_assoc($category);
 
                       if (strlen($row['description']) > 30) {
-                        $description = substr($row['description'], 0, 7) . '...';
+                        $description = substr($row['description'], 0, 50) . '...';
                       } else {
                         $description = $row['description'];
                       }
                   ?>
 
                   <p style="color: black; font-size: 70%;">Category : <?= $data['category_name'];  ?></p>
+                  <p style="color: black; font-size: 90%;">Stock : <?= $row['stock'];  ?>
                   <p class="card-text" style="font-size: 60%; color: black">
                     <?= $description;  ?>
                   </p>

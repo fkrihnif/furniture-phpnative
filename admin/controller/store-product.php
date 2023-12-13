@@ -58,7 +58,7 @@ if (move_uploaded_file($tmp_file, "../../image/product/".$namaGambarBaru)) {
 	if($result){
 		echo "
 		<script>
-		alert('PRODUK BERHASIL DITAMBAHKAN');
+		alert('Data Successfully Added!');
 		window.location = '../product.php';
 		</script>
 		";

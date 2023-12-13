@@ -10,7 +10,7 @@ $del = mysqli_query($conn, "DELETE FROM product WHERE id = '$id'");
 if($del){
 	echo "
 	<script>
-	alert('DATA BERHASIL DIHAPUS');
+	alert('Data Deleted Successfully!');
 	window.location = '../product.php';
 	</script>
 	";

@@ -97,12 +97,12 @@ if(isset($_SESSION['admin'])){
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input type="hidden" name="id_transaction" value="<?php echo $id_transaction; ?>">
                 <label for="status"><b>Change Status Transaction</b> : </label>
-                <select name="status" id="">
+                <select name="status" id="" required>
                     <option disabled selected value> -- select an option -- </option>
                     <option value="0">Order being checked by admin</option>
                     <option value="1">Order received by admin</option>
                 </select>
-                <button type="submit" name="submit1" class="btn btn-warning btn-sm">Update</button>
+                <button type="submit" name="submit1" class="btn btn-success btn-sm">Update</button>
             </form>
             </div>
         </div>

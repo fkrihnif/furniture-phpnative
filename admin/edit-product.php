@@ -4,7 +4,13 @@ include 'header.php';
 if(!isset($_SESSION['admin'])) {
   header('location:../index.php');
 } else {
-  $result = mysqli_query($conn, "SELECT * FROM category");
+    $id = $_GET['id'];
+    $product = mysqli_query($conn, "SELECT * from product where id = '$id'");
+    $data = mysqli_fetch_assoc($product);
+
+    $category_id = $data['category_id'];
+    $category = mysqli_query($conn, "SELECT * from category where id = '$category_id'");
+    $data_category = mysqli_fetch_assoc($category);
   ?>
 
 
@@ -13,23 +19,34 @@ if(!isset($_SESSION['admin'])) {
         <h4 class="mt-3" style="padding-left: 35px">Add Product</h4>
       </div>
 
-    <form action="controller/store-product.php" method="POST" enctype="multipart/form-data">
+    <form action="controller/update-product.php" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="product_id" value="<?= $data['id']; ?>"">
     <div class="row" style="padding-left: 20px; padding-bottom: 40px">
         <div class="col-6">
           <div class="form-group">
             <label for="">Name Product</label>
-            <input type="text" class="form-control" name="name" required autofocus />
+            <input type="text" class="form-control" name="name" value="<?= $data['name']; ?>" />
           </div>
         </div>
         <div class="col-6">
-        <div class="form-group">
+          <div class="form-group">
             <label for="">Category</label>
             <select class="form-select" aria-label="Choose Category" name="category_id">
               <?php
                 $result = mysqli_query($conn, "SELECT * FROM category");
                 while ($row = mysqli_fetch_assoc($result)) {
               ?>
+                <!-- <option value="4" selected>dsds</option> -->
                 <option value="<?= $row['id']; ?>"
+                <?php
+                  if ($row['id'] == $data['category_id']) {
+                    ?>
+                      selected
+                    <?php
+                    } 
+                    ?>
+
+                
                 ><?= $row['category_name']; ?></option>
               <?php
                 }
@@ -40,13 +57,13 @@ if(!isset($_SESSION['admin'])) {
         <div class="col-6">
           <div class="form-group mt-3">
             <label for="">Photo Product</label>
-            <input type="file" class="form-control" name="files" required />
+            <input type="file" class="form-control" name="files" />
           </div>
         </div>
         <div class="col-6">
           <div class="form-group mt-3">
             <label for="">Price</label>
-            <input type="number" class="form-control" name="price" required />
+            <input type="text" class="form-control" name="price" value="<?= $data['price']; ?>" />
           </div>
         </div>
         <div class="col-6">
@@ -57,17 +74,17 @@ if(!isset($_SESSION['admin'])) {
               id=""
               cols="10"
               rows="4"
-              class="form-control" required></textarea>
+              class="form-control"><?= $data['description']; ?></textarea>
           </div>
         </div>
         <div class="col-6">
           <div class="form-group mt-3">
             <label for="">Stock</label>
-            <input type="number" class="form-control" name="stock" required />
+            <input type="text" class="form-control" name="stock" value="<?= $data['stock']; ?>" />
           </div>
         </div>
         <div class="col-6 mt-4">
-          <button class="btn btn-success" type="submit">Save Product</button>
+          <button class="btn btn-success" type="submit">Update Product</button>
         </div>
       </div>
     </form>

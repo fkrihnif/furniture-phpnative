@@ -4,18 +4,28 @@ include 'header.php';
 if(!isset($_SESSION['admin'])) {
   header('location:../index.php');
 } else {
-  ?>
+
+        if(isset($_POST['search'])){
+          $date = $_POST['date'];
+
+          $check_transaction = mysqli_query($conn, "SELECT id from transaction where created_at = '$date'");
+          $count_transaction = mysqli_num_rows($check_transaction);
   
-    <?php
+          $check_revenue = mysqli_query($conn, "SELECT SUM(total_price) AS total_transaction FROM transaction where created_at = '$date'");
+          $row = mysqli_fetch_assoc($check_revenue);
+          $count_revenue = $row['total_transaction'];
+
+        }else{
+          $check_transaction = mysqli_query($conn, "SELECT id from transaction");
+          $count_transaction = mysqli_num_rows($check_transaction);
+  
+          $check_revenue = mysqli_query($conn, "SELECT SUM(total_price) AS total_transaction FROM transaction");
+          $row = mysqli_fetch_assoc($check_revenue);
+          $count_revenue = $row['total_transaction'];
+        }
+
         $check_customer = mysqli_query($conn, "SELECT id from customer");
         $count_customer = mysqli_num_rows($check_customer);
-
-        $check_transaction = mysqli_query($conn, "SELECT id from transaction");
-        $count_transaction = mysqli_num_rows($check_transaction);
-
-        $check_revenue = mysqli_query($conn, "SELECT SUM(total_price) AS total_transaction FROM transaction");
-        $row = mysqli_fetch_assoc($check_revenue);
-        $count_revenue = $row['total_transaction'];
     ?>
 
     <div class="container" style="background-color: white; border-radius: 30px">
@@ -24,9 +34,13 @@ if(!isset($_SESSION['admin'])) {
       </div>
       <div class="row mt-3">
         <div class="col-4">
-          <div class="form-group" style="padding-left: 20px">
-            <input type="date" class="form-control" name="" />
+          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+          <div class="" style="padding-left: 20px">
+            <input type="date" class="form-control" name="date" />
+            <button type="submit" name="search" class="btn btn-success btn-sm mt-2">Search</button>
           </div>
+        </form>
+            
         </div>
       </div>
       <div class="row mt-4" style="padding-left: 20px">
@@ -53,7 +67,14 @@ if(!isset($_SESSION['admin'])) {
             <div class="card-body">
               <b>Revenue</b>
               <br /><br />
-              <p><?php echo rupiah($count_revenue); ?></p>
+              <p><?php 
+              if ($count_revenue > 0) {
+                echo rupiah($count_revenue); 
+              } else {
+                echo "0"; 
+              }
+            
+              ?></p>
             </div>
           </div>
         </div>

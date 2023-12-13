@@ -27,6 +27,10 @@ if(!isset($_SESSION['admin'])) {
 				$result = mysqli_query($conn, "SELECT * FROM product");
 				$no =1;
 				while ($row = mysqli_fetch_assoc($result)) {
+
+          $category_id = $row['category_id'];
+          $category = mysqli_query($conn, "SELECT * from category where id = '$category_id'");
+          $data_category = mysqli_fetch_assoc($category);
 				?>
 
         <div class="col-4 mb-4">
@@ -37,12 +41,13 @@ if(!isset($_SESSION['admin'])) {
               alt="..."
               height="200px" />
             <div class="card-body">
-              <b><?= $row['name'];  ?></b>
+              <h4><?= $row['name'];  ?></h4>
+              <h6>Category : <?= $data_category['category_name']; ?></h6>
               <p class="card-text" style="font-size: 60%"> Stok :
               <?= $row['stock'];  ?>
               </p>
-              <p>Rp. <?= $row['price'];  ?></p>
-              <a href="edit_produk.php?id=<?= $row['id']; ?>"><i class="bi bi-pencil"></i></a> &nbsp;
+              <p><?= rupiah($row['price']);  ?></p>
+              <a href="edit-product.php?id=<?= $row['id']; ?>"><i class="bi bi-pencil"></i></a> &nbsp;
               <a href="controller/delete-product.php?id=<?= $row['id']; ?>" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></a>
             </div>
           </div>

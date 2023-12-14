@@ -36,7 +36,18 @@ if(!isset($_SESSION['admin'])) {
         <div class="col-4">
           <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
           <div class="" style="padding-left: 20px">
-            <input type="date" class="form-control" name="date" />
+            <input type="date" class="form-control" name="date" 
+            <?php
+            if(isset($_POST['search'])){
+              $date = $_POST['date'];
+              ?>
+              value="<?= $date; ?>"
+              <?php
+
+              }
+            ?>
+            
+            />
             <button type="submit" name="search" class="btn btn-success btn-sm mt-2">Search</button>
           </div>
         </form>
@@ -85,7 +96,7 @@ if(!isset($_SESSION['admin'])) {
           <h4>Report Transaction</h4>
         </div>
         <div class="col-6 mb-3" style="text-align: right;">
-        <a href="transaction-pdf.php" target="_blank" class="btn btn-success"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
+        <a href="transaction-all-pdf.php" target="_blank" class="btn btn-success"><i class="fa fa-file-pdf-o"></i> Export All Transaction to PDF</a>
         </div>
         <div class="col-12" style="padding-left: 35px">
           <table id="example" class="table table-striped" style="width: 100%">
@@ -97,11 +108,17 @@ if(!isset($_SESSION['admin'])) {
                 <th>Date</th>
                 <th>Status</th>
                 <th>Detail</th>
+                <th>Export Pdf</th>
               </tr>
             </thead>
             <tbody>
               <?php
-                   $result = mysqli_query($conn, "SELECT * FROM transaction order by id desc");
+                 if(isset($_POST['search'])){
+                  $date = $_POST['date'];
+                  $result = mysqli_query($conn, "SELECT * FROM transaction where created_at = '$date' order by id desc");
+                } else {
+                  $result = mysqli_query($conn, "SELECT * FROM transaction order by id desc");
+                }
                   $no = 1;
                   foreach ($result as $row):
               ?>
@@ -130,6 +147,9 @@ if(!isset($_SESSION['admin'])) {
                         <i class="bi bi-eye"></i>
                       </button>
                     </a>
+                </td>
+                <td align="left">
+                <a href="transaction-pdf.php?id_transaction=<?= $row['id'] ?>" target="_blank" class="btn btn-success"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
                 </td>
                     <?php 
               $no++;

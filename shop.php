@@ -21,15 +21,47 @@ if(isset($_SESSION['id_cs'])){
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <button type="button" class="btn btn-primary btn-sm">All</button>&nbsp; 
+
+            <?php
+              if (!isset($_GET['category_id'])) {
+                ?>
+                <a href="shop.php"><button type="button" class="btn btn-primary btn-sm">All</button></a>&nbsp; 
+                <?php
+              } else {
+                ?>
+                <a href="shop.php"><button type="button" class="btn btn-secondary btn-sm">All</button></a>&nbsp; 
+                <?php
+              }
+              
+            ?>
 
             <?php
               				$result_category = mysqli_query($conn, "SELECT * FROM category");
                       while ($row_category = mysqli_fetch_assoc($result_category)) {
 
             ?>
-                  <button type="button" class="btn btn-secondary btn-sm"><?= $row_category['category_name'];  ?></button>&nbsp; 
-
+                  <a href="shop.php?category_id=<?= $row_category['id']; ?> " style="text-decoration: none;">
+                  
+                  <?php
+                    if (!isset($_GET['category_id'])) {
+                      ?>
+                      <button type="button" class="btn btn-secondary btn-sm"><?= $row_category['category_name'];?></button>
+                      <?php
+                    } else {
+                      $category_id = $_GET['category_id'];
+                        if ($category_id == $row_category['id']) {
+                            ?>
+                            <button type="button" class="btn btn-primary btn-sm"><?= $row_category['category_name'];?></button>
+                            <?php
+                        } else {
+                            ?>
+                            <button type="button" class="btn btn-secondary btn-sm"><?= $row_category['category_name'];?></button>
+                            <?php
+                        }   
+                    }
+                  ?>
+                  
+                  </a>&nbsp; 
                   <?php
                     }
                   ?>
@@ -37,17 +69,32 @@ if(isset($_SESSION['id_cs'])){
         </div>
       </div>
     </section>
-    <section class="features mt-70" style="padding-bottom: 60px;">
+    <section class="features" style="padding-bottom: 60px; margin-top:40px">
       <div class="container">
+        <?php
+            if(isset($_GET['category_id'])){
+              $category_id = $_GET['category_id'];
+              $result = mysqli_query($conn, "SELECT * FROM product where category_id = '$category_id'");
+          } else {
+            $result = mysqli_query($conn, "SELECT * FROM product");
+          }
+        ?>
         <div class="row">
 
-
         <?php 
-				$result = mysqli_query($conn, "SELECT * FROM product");
+          if(isset($_GET['category_id'])){
+            $category_id = $_GET['category_id'];
+            $result = mysqli_query($conn, "SELECT * FROM product where category_id = '$category_id'");
+        } else {
+          $result = mysqli_query($conn, "SELECT * FROM product");
+        }
+
+
+
 				while ($row = mysqli_fetch_assoc($result)) {
 				?>
 
-        <div class="col-3">
+        <div class="col-3 mb-5">
             <a href="detail-shop.php?id=<?= $row['id']; ?>" style="text-decoration: none">
               <div class="card" style="width: 18rem">
                 <img
@@ -64,7 +111,7 @@ if(isset($_SESSION['id_cs'])){
                       $data = mysqli_fetch_assoc($category);
 
                       if (strlen($row['description']) > 30) {
-                        $description = substr($row['description'], 0, 50) . '...';
+                        $description = substr($row['description'], 0, 45) . '...';
                       } else {
                         $description = $row['description'];
                       }

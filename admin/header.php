@@ -52,6 +52,9 @@ include '../controller/format-rupiah.php';
               <a class="nav-link" href="index.php">Dashboard</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="category.php">Category</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="product.php">Product</a>
             </li>
           </ul>

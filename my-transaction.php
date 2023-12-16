@@ -30,10 +30,11 @@ if(isset($_SESSION['user'])){
           <thead>
             <tr style="text-align: center">
                 <th scope="col">No</th>
-              <th scope="col" style="width: 40%">Code Transaction</th>
+              <th scope="col" style="width: 20%">Code Transaction</th>
               <th scope="col">Total Price</th>
               <th scope="col">Date</th>
               <th scope="col">Status</th>
+              <th scope="col">Export PDF</th>
               <th scope="col">Detail</th>
             </tr>
           </thead>
@@ -61,7 +62,8 @@ if(isset($_SESSION['user'])){
                     }
                 ?>
                 
-
+              <td> <a href="transaction-pdf.php?id_transaction=<?= $row['id'] ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
+                </td></td>
               <td><a href="detail-transaction.php?id_transaction=<?= $row['id']; ?>">
                   <button class="btn btn-warning btn-sm">
                     <i class="bi bi-eye"></i>

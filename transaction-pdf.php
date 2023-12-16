@@ -1,8 +1,8 @@
 <?php
 // memanggil library FPDF
-require('../libraryPdf/fpdf.php');
-include '../connection/connection.php';
-include '../controller/format-rupiah.php';
+require('libraryPdf/fpdf.php');
+include 'connection/connection.php';
+include 'controller/format-rupiah.php';
 
 $id_transaction_get = $_GET['id_transaction'];
  

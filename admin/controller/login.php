@@ -16,15 +16,23 @@ if($username == $user){
 		header('location:../index.php');
 	}
 	else{
-
-		$_SESSION["admin"] = true;
-		header('location:../login.php');
+		echo "
+		<script>
+		alert('Username/Password Incorrect');
+		window.location = '../login.php';
+		</script>
+		";
+		die;
 	}
 }
 else{
-
-	$_SESSION["admin"] = true;
-	header('location:../login.php');
+	echo "
+	<script>
+	alert('Username/Password Incorrect');
+	window.location = '../login.php';
+	</script>
+	";
+	die;
 }
 
 ?>
